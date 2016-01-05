@@ -11,3 +11,9 @@ hadoop jar /opt/cloudera/parcels/CDH-5.4.8-1.cdh5.4.8.p0.4/lib/hadoop-mapreduce/
 如果不知道streaming jar包在哪里（比如集群不是你安装的），你可以用下面的命令找到
 
 find / -name *.jar | grep streaming
+
+如果你安装了 spark，那可以用 pyspark 达到同样的目的：
+
+pyspark
+import re
+sc.textFile( "alan/wc/wc.txt" ).flatMap( lambda line: re.split( '\W+', line ) ).map( lambda w:(w,1)  ).reduceByKey( lambda v1,v2: v1+v2  ).take(10)
